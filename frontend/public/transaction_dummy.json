@@ -65,8 +65,36 @@
             "$numberDecimal": "12.99"
         },
         "currency": "SGD",
-        "date_of_transaction": "2022-02-17T05:58:53.328Z",
-        "createdAt": "2022-02-17T05:58:53.332Z",
-        "updatedAt": "2022-02-17T05:58:53.332Z"
+        "date_of_transaction": "2021-12-17T05:58:53.328Z",
+        "createdAt": "2021-12-17T05:58:53.332Z",
+        "updatedAt": "2021-12-17T05:58:53.332Z"
+    },
+    {
+        "user_id": "620dcdf23c4ac8d22745968a",
+        "transaction_key": "TX-7ac4b7d5-a065-4b93-9f1f-513e3a6712f2",
+        "description": "chicha",
+        "type": "expense",
+        "category": "food",
+        "amount": {
+            "$numberDecimal": "5.50"
+        },
+        "currency": "SGD",
+        "date_of_transaction": "2022-01-01T06:00:34.477Z",
+        "createdAt": "2022-01-01T06:00:34.479Z",
+        "updatedAt": "2022-01-01T06:00:34.479Z"
+    },
+    {
+        "user_id": "620dcdf23c4ac8d22745968a",
+        "transaction_key": "TX-7ac4b7d5-a065-4b93-9f1f-513e3a6712f2",
+        "description": "bus",
+        "type": "expense",
+        "category": "transport",
+        "amount": {
+            "$numberDecimal": "1.50"
+        },
+        "currency": "SGD",
+        "date_of_transaction": "2022-03-01T06:00:34.477Z",
+        "createdAt": "2022-03-01T06:00:34.479Z",
+        "updatedAt": "2022-03-01T06:00:34.479Z"
     }
 ]

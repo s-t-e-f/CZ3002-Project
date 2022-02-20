@@ -31,7 +31,7 @@ export const transactionsMthYr = (data, selectedMth, selectedYear) => {
   let filteredData = data
     .filter(
       (elem) =>
-        new Date(elem.date_of_transaction).getUTCFullYear().toString() ===
+        new Date(elem.date_of_transaction).getFullYear().toString() ===
         selectedYear.toString()
     )
     .filter(

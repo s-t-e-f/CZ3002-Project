@@ -1,11 +1,18 @@
 import axios from "axios";
 import { useState, Fragment, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
+
+// For UI
+import { IconButton } from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 import MainHeader from "../components/MainHeader";
 import Transaction from "../components/Transaction/Transaction";
-import TransactionForm from "../components/NewTransaction/TransactionForm";
+
 
 const TransactionPage = () => {
+
+  const history = useHistory();
   const [transactionData, setTransactionData] = useState([]);
 
   useEffect(() => {
@@ -21,9 +28,20 @@ const TransactionPage = () => {
     setTransactionData([transaction, ...transactionData]);
   };
 
+  const addTransactionButtonHandler = () => {
+    history.push("transactionForm");
+  };
+
+
   return (
     <Fragment>
       <MainHeader />
+      <IconButton onClick={addTransactionButtonHandler}>
+        <AddCircleIcon
+          sx={{ fontSize: 50 }}
+          style={{ position: "fixed", bottom: 50, right: 50 }}
+        />
+      </IconButton>
       <Transaction data={transactionData}></Transaction>
     </Fragment>
   );

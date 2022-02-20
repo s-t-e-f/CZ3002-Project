@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 
-// For UI
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+//UI
+import { IconButton } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import * as utils from "./Util";
 import TransactionDay from "./TransactionDay";
@@ -13,7 +15,7 @@ const Transaction = (props) => {
   const [mth, setMth] = useState(
     today.toLocaleString("default", { month: "long" })
   );
-  const [year, setYear] = useState(today.getUTCFullYear());
+  const [year, setYear] = useState(today.getFullYear());
 
   const [allDates, setAllDates] = useState([]);
   const [transactions, setTransactions] = useState([]);
@@ -23,15 +25,33 @@ const Transaction = (props) => {
     const dates = utils.getDates(mth, year);
     setAllDates(dates);
     setTransactions(transactions);
-  }, [setMth, setYear, props.data, setTransactions]);
+  }, [mth, year, props.data, setTransactions]);
+  
+  const leftArrowHandler = () => {
+    let d = new Date(mth +" 1, " + year.toString());
+    d.setMonth(d.getMonth()-1);
+    setMth(d.toLocaleString("default", {month:"long"}))
+    console.log(d);
+    setYear(d.getFullYear());
+  }
+
+  const rightArrowHandler = () => {
+    let d = new Date(mth +" 1, " + year.toString());
+    d.setMonth(d.getMonth()+1);
+    setMth(d.toLocaleString("default", {month:"long"}))
+    setYear(d.getFullYear());
+  }
 
   return (
     <div className="transaction">
       <h1>{mth + "-" + year}</h1>
-      <AddCircleIcon
-        sx={{ fontSize: 50 }}
-        style={{position:"fixed", bottom:50, right:40}}
-      />
+      <IconButton onClick={leftArrowHandler}>
+        <ArrowBackIosIcon sx={{ fontSize: 50 }} />
+      </IconButton>
+      <IconButton onClick={rightArrowHandler}>
+        <ArrowForwardIosIcon sx={{ fontSize: 50 }}/>
+      </IconButton>
+
       {allDates.map((date) => (
         <TransactionDay data={transactions} date={date}></TransactionDay>
       ))}
