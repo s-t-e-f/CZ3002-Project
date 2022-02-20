@@ -33,6 +33,7 @@
   border: 1px solid #ccc;
   width: 20rem;
   max-width: 100%;
+  text-transform: capitalize;
 }
 
 .new-transaction__actions {

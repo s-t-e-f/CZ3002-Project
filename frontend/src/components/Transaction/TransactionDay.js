@@ -20,6 +20,7 @@ const TransactionDay = (props) => {
           <div className="transaction-list">
             {transactionList.map((transaction) => (
               <TransactionItem
+                date={new Date(transaction.date_of_transaction)}
                 category={transaction.category}
                 description={transaction.description}
                 amount={transaction.amount.$numberDecimal}

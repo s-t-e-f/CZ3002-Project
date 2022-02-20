@@ -4,11 +4,13 @@ import { ButtonGroup, Button } from "@mui/material";
 import "./TransactionForm.css";
 
 const TransactionForm = (props) => {
-  const [enteredType, setEnteredType] = useState("Income");
-  const [enteredDate, setEnteredDate] = useState("");
-  const [enteredCategory, setEnteredCategory] = useState("");
-  const [enteredAmount, setEnteredAmount] = useState("");
-  const [enteredNote, setEnteredNote] = useState("");
+  const [enteredType, setEnteredType] = useState(props.type);
+  const [enteredDate, setEnteredDate] = useState(props.date.toLocaleDateString("en-CA"));
+  const [enteredCategory, setEnteredCategory] = useState(props.category);
+  const [enteredAmount, setEnteredAmount] = useState(props.amount);
+  const [enteredNote, setEnteredNote] = useState(props.description);
+
+  console.log(enteredDate);
 
   const typeChangeHandler = (event) => {
     setEnteredType(event.target.value);
@@ -51,7 +53,6 @@ const TransactionForm = (props) => {
   // 5 Input Field - Type, Date, Category, Amount and Note
   return (
     <form onSubmit={submitHandler}>
-      <h1 className="new-transaction__h1">Add Transaction</h1>
       <div className="new-transaction__controls">
         <div className="new-transaction__control">
           <ButtonGroup variant="outlined" >

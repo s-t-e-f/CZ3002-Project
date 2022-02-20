@@ -29,7 +29,17 @@ const TransactionPage = () => {
   };
 
   const addTransactionButtonHandler = () => {
-    history.push("transactionForm");
+    history.push({
+      pathname: "transactionForm",
+      state: {
+        type: "income",
+        date: new Date(),
+        category: "",
+        amount: "",
+        description:"",
+        action:"add"
+      },
+    });
   };
 
 
