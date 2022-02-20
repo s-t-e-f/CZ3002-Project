@@ -1,8 +1,9 @@
-import { isValidElement, useState } from "react";
+import { useState } from "react";
+import { ButtonGroup, Button } from "@mui/material";
+
 import "./TransactionForm.css";
 
 const TransactionForm = (props) => {
-
   const [enteredType, setEnteredType] = useState("Income");
   const [enteredDate, setEnteredDate] = useState("");
   const [enteredCategory, setEnteredCategory] = useState("");
@@ -32,16 +33,16 @@ const TransactionForm = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
     const transactionData = {
-        description: enteredNote,
-        type: enteredType,
-        category: enteredCategory,
-        amount: enteredAmount,
-        date: new Date(enteredDate)
+      description: enteredNote,
+      type: enteredType,
+      category: enteredCategory,
+      amount: enteredAmount,
+      date: new Date(enteredDate),
     };
 
     props.onAddTransactionData(transactionData);
     setEnteredAmount("");
-    setEnteredCategory("")
+    setEnteredCategory("");
     setEnteredDate("");
     setEnteredNote("");
     setEnteredType("");
@@ -50,7 +51,15 @@ const TransactionForm = (props) => {
   // 5 Input Field - Type, Date, Category, Amount and Note
   return (
     <form onSubmit={submitHandler}>
+      <h1 className="new-transaction__h1">Add Transaction</h1>
       <div className="new-transaction__controls">
+        <div className="new-transaction__control">
+          <ButtonGroup variant="outlined" >
+            <Button>Income</Button>
+            <Button>Expense</Button>
+          </ButtonGroup>
+        </div>
+
         <div className="new-transaction__control">
           <label>Date</label>
           <input
@@ -62,11 +71,15 @@ const TransactionForm = (props) => {
           />
         </div>
         <div className="new-transaction__control">
-        <label>Category</label>
-          <input type="text" value={enteredCategory} onChange={categoryChangeHandler} />
+          <label>Category</label>
+          <input
+            type="text"
+            value={enteredCategory}
+            onChange={categoryChangeHandler}
+          />
         </div>
         <div className="new-transaction__control">
-        <label>Amount</label>
+          <label>Amount</label>
           <input
             type="number"
             min="0.01"
@@ -76,11 +89,11 @@ const TransactionForm = (props) => {
           />
         </div>
         <div className="new-transaction__control">
-        <label>Note</label>
+          <label>Note</label>
           <input type="text" value={enteredNote} onChange={noteChangeHandler} />
         </div>
         <div className="new-transaction__actions">
-            <button type="submit">Save</button>
+          <Button type="submit" variant="contained">Save</Button>
         </div>
       </div>
     </form>
