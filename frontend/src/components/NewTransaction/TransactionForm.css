@@ -36,7 +36,22 @@
   text-transform: capitalize;
 }
 
+.new-transaction__control select {
+  font: inherit;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 20rem;
+  max-width: 100%;
+  text-transform: capitalize;
+}
+
 .new-transaction__actions {
     text-align: center;
-    margin: 2rem;
+    margin: 1.5rem;
+}
+
+.new-transaction__actions button {
+  margin: 0.5rem;
+  width: 3cm;
 }

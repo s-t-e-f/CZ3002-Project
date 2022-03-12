@@ -1,16 +1,20 @@
 import { useState } from "react";
-import { ButtonGroup, Button } from "@mui/material";
+import { Button } from "@mui/material";
+import { useDispatch } from "react-redux";
 
 import "./TransactionForm.css";
+import { TransactionActions } from "../../store/Transaction";
 
 const TransactionForm = (props) => {
+  const dispatch = useDispatch();
+
   const [enteredType, setEnteredType] = useState(props.type);
-  const [enteredDate, setEnteredDate] = useState(props.date.toLocaleDateString("en-CA"));
+  const [enteredDate, setEnteredDate] = useState(
+    props.date.toLocaleDateString("en-CA")
+  );
   const [enteredCategory, setEnteredCategory] = useState(props.category);
   const [enteredAmount, setEnteredAmount] = useState(props.amount);
   const [enteredNote, setEnteredNote] = useState(props.description);
-
-  console.log(enteredDate);
 
   const typeChangeHandler = (event) => {
     setEnteredType(event.target.value);
@@ -34,7 +38,8 @@ const TransactionForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    const transactionData = {
+
+    const transaction = {
       description: enteredNote,
       type: enteredType,
       category: enteredCategory,
@@ -42,7 +47,8 @@ const TransactionForm = (props) => {
       date: new Date(enteredDate),
     };
 
-    props.onAddTransactionData(transactionData);
+    dispatch(TransactionActions.addTransaction());
+
     setEnteredAmount("");
     setEnteredCategory("");
     setEnteredDate("");
@@ -53,12 +59,21 @@ const TransactionForm = (props) => {
   // 5 Input Field - Type, Date, Category, Amount and Note
   return (
     <form onSubmit={submitHandler}>
+      {props.action === "add" ? (
+        <h1 className="new-transaction__h1">Add Transaction</h1>
+      ) : (
+        <h1 className="new-transaction__h1">Edit Transaction</h1>
+      )}
       <div className="new-transaction__controls">
         <div className="new-transaction__control">
-          <ButtonGroup variant="outlined" >
-            <Button>Income</Button>
-            <Button>Expense</Button>
-          </ButtonGroup>
+          <div className="new-transaction__actions">
+            <Button variant={enteredType=="income"? "contained": "outlined"} value="income" onClick={typeChangeHandler}> 
+              Income
+            </Button>
+            <Button variant={enteredType=="expense"? "contained": "outlined"} value="expense" onClick={typeChangeHandler}>
+              Expense
+            </Button>
+          </div>
         </div>
 
         <div className="new-transaction__control">
@@ -73,11 +88,27 @@ const TransactionForm = (props) => {
         </div>
         <div className="new-transaction__control">
           <label>Category</label>
-          <input
-            type="text"
-            value={enteredCategory}
-            onChange={categoryChangeHandler}
-          />
+          <div className="new-transaction__actions">
+            {props.type === "income" ? (
+              <select value={enteredCategory} onChange={categoryChangeHandler}>
+                <option value="salary">Salary</option>
+                <option value="allowance">Allowance</option>
+                <option value="bonus">Bonus</option>
+                <option value="pettycash">Petty cash</option>
+                <option value="other">Other</option>
+              </select>
+            ) : (
+              <select value={enteredCategory} onChange={categoryChangeHandler}>
+                <option value="food">Food</option>
+                <option value="transport">Transport</option>
+                <option value="apparel">Apparel</option>
+                <option value="social life">Social Life</option>
+                <option value="household">Household</option>
+                <option value="gift">Gift</option>
+                <option value="others">Other</option>
+              </select>
+            )}
+          </div>
         </div>
         <div className="new-transaction__control">
           <label>Amount</label>
@@ -93,9 +124,22 @@ const TransactionForm = (props) => {
           <label>Note</label>
           <input type="text" value={enteredNote} onChange={noteChangeHandler} />
         </div>
-        <div className="new-transaction__actions">
-          <Button type="submit" variant="contained">Save</Button>
-        </div>
+        {props.action === "edit" ? (
+          <div className="new-transaction__actions">
+            <Button type="submit" variant="contained">
+              Save
+            </Button>
+            <Button type="submit" variant="contained">
+              Delete
+            </Button>
+          </div>
+        ) : (
+          <div className="new-transaction__actions">
+            <Button type="submit" variant="contained">
+              Save
+            </Button>
+          </div>
+        )}
       </div>
     </form>
   );

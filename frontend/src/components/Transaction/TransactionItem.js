@@ -8,7 +8,7 @@ const TransactionItem = (props) => {
   const history = useHistory();
   const editTransactionHandler = () => {
     history.push({
-      pathname: "transactionForm",
+      pathname: "/transactionPage/transactionForm",
       state: {
         type: props.type,
         date: props.date,

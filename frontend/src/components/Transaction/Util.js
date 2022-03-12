@@ -26,29 +26,33 @@ export const getDates = (selectedMth, selectedYear) => {
   return dates;
 };
 
-// Get transactions in selected month-yr
-export const transactionsMthYr = (data, selectedMth, selectedYear) => {
+// Get transactions in a selected date
+
+export const transactionsInDate = (data, date) => {
   let filteredData = data
     .filter(
       (elem) =>
-        new Date(elem.date_of_transaction).getFullYear().toString() ===
-        selectedYear.toString()
+        new Date(elem.date_of_transaction).getFullYear() === date.getFullYear()
     )
     .filter(
       (elem) =>
-        new Date(elem.date_of_transaction).toLocaleString("default", {
-          month: "long",
-        }) === selectedMth
+        new Date(elem.date_of_transaction).getMonth() === date.getMonth()
+    )
+    .filter(
+      (elem) => new Date(elem.date_of_transaction).getDate() === date.getDate()
     );
   return filteredData;
 };
 
-// Get transactions in a selected date
+// Get Overall Income and Expense
+export const getOverall = (data, type) => {
 
-export const transactionsInDate = (data, selectedDate) => {
   let filteredData = data.filter(
-    (elem) =>
-      new Date(elem.date_of_transaction).getDate() === selectedDate.getDate()
-  );
-  return filteredData;
+    (elem) => elem.type == type 
+  )
+  var sum = 0;
+  for (var i=0; i<filteredData.length; i++) {
+      sum += parseFloat(filteredData[i].amount.$numberDecimal);
+  }
+  return sum;
 };

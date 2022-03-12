@@ -8,7 +8,7 @@ import ax from 'axios';
 import { useHistory } from 'react-router-dom';
 
 const axios = ax.create({
-  baseURL: 'http://localhost:5000/',
+  baseURL: 'http://172.21.148.163',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -29,14 +29,15 @@ const LoginPage = () => {
 
   const signInHandler = async (emailInput, passwordInput) => {
     try {
-      let response = await axios.post('/api/v1/sign-in', {
+      let response = await axios.post('/api/v1/auth/sign-in', {
         email: emailInput,
         password: passwordInput,
       });
 
       if (response.status === 200) {
         dispatch(AuthenticationActions.login());
-        history.push('/main');
+        localStorage.setItem("jwt_token", response.data.token);
+        history.push('/transactionPage');
       }
     } catch (error) {
       // probably need implement a modal to alert the user of error
