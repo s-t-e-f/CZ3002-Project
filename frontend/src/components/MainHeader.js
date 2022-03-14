@@ -5,7 +5,7 @@ const MainHeader = () => {
   return (
     <header className={classes.header}>
       <Link to='/' className={classes.logo}>
-        ProjectName
+        Finappsys
       </Link>
       <nav>
         <ul>

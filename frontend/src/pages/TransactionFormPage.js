@@ -1,7 +1,6 @@
 import { Fragment } from "react";
 import { useLocation } from "react-router-dom";
 
-import MainHeader from "../components/MainHeader";
 import TransactionForm from "../components/NewTransaction/TransactionForm";
 
 const TransactionFormPage = () => {

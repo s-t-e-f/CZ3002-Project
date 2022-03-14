@@ -1,14 +1,18 @@
 import "./Transaction.css";
 import TransactionItem from "./TransactionItem";
 import * as utils from "./Util";
+import { useSelector } from "react-redux";
 
 import NumberFormat from "react-number-format";
 
 const TransactionDay = (props) => {
   
   // Get all the transactions for that day
+
+  const transactions = useSelector((state) => state.transactions); 
+
   const transactionList = utils.transactionsInDate(
-    props.transactions,
+    transactions,
     props.date
   );
 
@@ -49,6 +53,7 @@ const TransactionDay = (props) => {
                 description={transaction.description}
                 amount={transaction.amount.$numberDecimal}
                 type={transaction.type}
+                id = {transaction.transaction_key}
               ></TransactionItem>
             ))}
           </div>

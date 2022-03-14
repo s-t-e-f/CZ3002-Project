@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import "./TransactionForm.css";
-import { TransactionActions } from "../../store/Transaction";
+import { addTransactionAsyn, deleteTransactionAsyn, editTransactionAsyn } from "../../store/Transaction";
 
 const TransactionForm = (props) => {
+
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [enteredType, setEnteredType] = useState(props.type);
   const [enteredDate, setEnteredDate] = useState(
@@ -46,15 +49,20 @@ const TransactionForm = (props) => {
       amount: enteredAmount,
       date: new Date(enteredDate),
     };
-
-    dispatch(TransactionActions.addTransaction());
-
-    setEnteredAmount("");
-    setEnteredCategory("");
-    setEnteredDate("");
-    setEnteredNote("");
-    setEnteredType("");
+    console.log(transaction);
+    
+    // TODO: Add in the following handlers
+    if (event.target.value === "add") {
+      dispatch(addTransactionAsyn(transaction));
+    } else if (props.action === "edit") {
+      dispatch(editTransactionAsyn(transaction, props.id));
+    } 
+    history.goBack();
   };
+
+  const deleteHandler = () => {
+    dispatch(deleteTransactionAsyn(props.id));
+  }
 
   // 5 Input Field - Type, Date, Category, Amount and Note
   return (
@@ -67,10 +75,10 @@ const TransactionForm = (props) => {
       <div className="new-transaction__controls">
         <div className="new-transaction__control">
           <div className="new-transaction__actions">
-            <Button variant={enteredType=="income"? "contained": "outlined"} value="income" onClick={typeChangeHandler}> 
+            <Button variant={enteredType==="income"? "contained": "outlined"} value="income" onClick={typeChangeHandler}> 
               Income
             </Button>
-            <Button variant={enteredType=="expense"? "contained": "outlined"} value="expense" onClick={typeChangeHandler}>
+            <Button variant={enteredType==="expense"? "contained": "outlined"} value="expense" onClick={typeChangeHandler}>
               Expense
             </Button>
           </div>
@@ -129,17 +137,17 @@ const TransactionForm = (props) => {
             <Button type="submit" variant="contained">
               Save
             </Button>
-            <Button type="submit" variant="contained">
+            <Button type="submit" variant="contained" onClick={deleteHandler}>
               Delete
             </Button>
           </div>
-        ) : (
+        ) : props.action === "add"? (
           <div className="new-transaction__actions">
             <Button type="submit" variant="contained">
-              Save
+              Add
             </Button>
           </div>
-        )}
+        ) : null}
       </div>
     </form>
   );

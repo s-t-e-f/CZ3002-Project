@@ -15,6 +15,7 @@ const TransactionItem = (props) => {
         category: props.category,
         amount: props.amount,
         description: props.description,
+        id: props.id,
         action: "edit"
       },
     });

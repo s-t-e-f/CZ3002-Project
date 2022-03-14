@@ -11,9 +11,7 @@ import TransactionDay from "./TransactionDay";
 import "./Transaction.css";
 
 
-const Transaction = (props) => {
-
-  const transactions = useSelector((state) => state.transactions); 
+const Transaction = () => {
 
   let today = new Date(); 
   const [mth, setMth] = useState(
@@ -55,7 +53,6 @@ const Transaction = (props) => {
       {allDates.map((date) => (
         <TransactionDay
           key={date}
-          transactions={transactions}
           date={date}
         ></TransactionDay>
       ))}
